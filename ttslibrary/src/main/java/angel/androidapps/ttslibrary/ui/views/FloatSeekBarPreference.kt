@@ -14,10 +14,12 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import angel.androidapps.ttslibrary.R
 
+@Keep
 class FloatSeekBarPreference(
     context: Context,
     attrs: AttributeSet?,
@@ -90,8 +92,8 @@ class FloatSeekBarPreference(
         super.onBindViewHolder(holder)
 
         holder!!.itemView.isClickable = false
-        seekBar = holder.findViewById(R.id.seek_bar) as SeekBar
-        textView = holder.findViewById(R.id.seek_bar_value) as TextView
+        seekBar = holder.findViewById(R.id.seekbar) as SeekBar
+        textView = holder.findViewById(R.id.seekbar_value) as TextView
 
         seekBar!!.setOnSeekBarChangeListener(this)
         // Seek barはIntのみ受け付けるのでよしなにやる
