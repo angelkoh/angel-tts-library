@@ -11,10 +11,12 @@ package angel.androidapps.ttslibrary.ui.views
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.annotation.Keep
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import angel.androidapps.ttslibrary.R
 
+@Keep
 class ProgressBarPreference(
     context: Context,
     attrs: AttributeSet?,
