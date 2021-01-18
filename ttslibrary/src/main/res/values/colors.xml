@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="primary">#65463C</color>
+    <color name="icons" tools:keep="@color/icons">#E4DFDF</color>
+</resources>

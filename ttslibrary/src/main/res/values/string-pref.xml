@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="label_category_speech">Speech</string>
+
+    <string name="label_settings">Settings</string>
+
+    <!--    SPEECH CATEGORY-->
+    <string name="label_tts_engine">Text-to-speech engine</string>
+    <string name="label_check_tts_availability">Checking TTS availability</string>
+    <string name="label_language">Language</string>
+    <string name="label_voice">Voice</string>
+    <string name="label_volume">Volume</string>
+    <string name="label_speech_rate">Speech rate</string>
+    <string name="label_pitch">Pitch</string>
+
+    <string name="no_tts_found">No TTS engine found! Click to download from Google Play</string>
+    <string name="download_tts_path" translatable="false">https://play.google.com/store/apps/details?id=com.google.android.tts</string>
+
+    <string name="key_check_tts_availability" translatable="false">key_check_tts_availability</string>
+    <string name="key_tts_engine" translatable="false">key_tts_engine</string>
+    <string name="key_no_tts_engine" translatable="false">key_no_tts_engine</string>
+    <string name="key_language" translatable="false">key_language</string>
+    <string name="key_voice" translatable="false">key_voice</string>
+    <string name="key_volume" translatable="false">key_volume</string>
+    <string name="key_speech_rate" translatable="false">key_speech_rate</string>
+    <string name="key_pitch" translatable="false">key_pitch</string>
+
+    <string name="summary_check_tts_availability">Please wait…</string>
+    <string name="error_no_language">Error! No language found in this TTS engine!</string>
+    <string name="error_no_tts">Error! No TTS engine found!</string>
+
+    <string name="min_volume" translatable="false">0.0</string>
+    <string name="max_volume" translatable="false">1.0</string>
+    <string name="min_speech_rate" translatable="false">0.1</string>
+    <string name="max_speech_rate" translatable="false">4.0</string>
+    <string name="min_pitch" translatable="false">0.1</string>
+    <string name="max_pitch" translatable="false">4.0</string>
+    <string name="format" translatable="false">%3.1f</string>
+
+    <!--    PLAYBACK SETTINGS CATEGORY-->
+
+    <!--    NAVIGATION CATEGORY-->
+
+    <!--    USER PREF KEYS-->
+
+</resources>

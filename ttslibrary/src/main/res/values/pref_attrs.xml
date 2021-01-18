@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FloatSeekBarPreference">
+        <attr name="minFloat" format="float" />
+        <attr name="maxFloat" format="float" />
+        <attr name="valueSpacing" format="float" />
+        <attr name="format" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ProgressBarPreference">
+        <attr name="indeterminate" format="boolean" />
+    </declare-styleable>
+
+</resources>

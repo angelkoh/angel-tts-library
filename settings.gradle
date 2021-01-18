@@ -1,0 +1,2 @@
+include ':ttslibrary'
+rootProject.name = "Angel TTS Library"

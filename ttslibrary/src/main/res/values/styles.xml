@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <style name="PrefsTheme" parent="PreferenceThemeOverlay" tools:keep="@style/PrefsTheme">
+        <item name="android:layout">@layout/fragment_settings</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" tools:keep="@style/AppTheme/AppBarOverlay">
+        <item name="android:textColor">@color/icons</item>
+        <item name="android:textColorSecondary">@color/icons</item>
+        <item name="actionMenuTextColor">@color/icons</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" tools:keep="@style/AppTheme/PopupOverlay">
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+</resources>

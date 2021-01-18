@@ -1,0 +1,77 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--    from https://developer.android.com/reference/androidx/preference/package-summary-->
+    <PreferenceCategory
+        app:icon="@drawable/ic_settings_language"
+        app:title="@string/label_category_speech">
+
+
+        <angel.androidapps.ttslibrary.ui.views.ProgressBarPreference
+            app:indeterminate="true"
+            app:key="@string/key_check_tts_availability"
+            app:summary="@string/summary_check_tts_availability"
+            app:title="@string/label_check_tts_availability" />
+
+        <Preference
+            android:summary="@string/no_tts_found"
+            app:icon="@drawable/ic_settings_warning"
+            app:isPreferenceVisible="false"
+            app:key="@string/key_no_tts_engine">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/download_tts_path" />
+        </Preference>
+
+        <DropDownPreference
+            app:enabled="false"
+            app:key="@string/key_tts_engine"
+            app:summary="%1$s"
+            app:title="@string/label_tts_engine" />
+
+        <DropDownPreference
+            app:dependency="@string/key_tts_engine"
+            app:key="@string/key_language"
+            app:summary="%1$s"
+            app:title="@string/label_language" />
+
+        <DropDownPreference
+            app:dependency="@string/key_tts_engine"
+            app:key="@string/key_voice"
+            app:summary="%1$s"
+            app:title="@string/label_voice" />
+
+        <angel.androidapps.ttslibrary.ui.views.FloatSeekBarPreference
+            app:defaultValue="1.0"
+            app:dependency="@string/key_tts_engine"
+            app:format="@string/format"
+            app:key="@string/key_volume"
+            app:maxFloat="@string/max_volume"
+            app:minFloat="@string/min_volume"
+            app:showSeekBarValue="true"
+            app:title="@string/label_volume"
+            app:valueSpacing="0.1" />
+
+        <angel.androidapps.ttslibrary.ui.views.FloatSeekBarPreference
+            app:defaultValue="1.0"
+            app:dependency="@string/key_tts_engine"
+            app:key="@string/key_speech_rate"
+            app:maxFloat="@string/max_speech_rate"
+            app:minFloat="@string/min_speech_rate"
+            app:showSeekBarValue="true"
+            app:title="@string/label_speech_rate"
+            app:valueSpacing="0.1" />
+
+        <angel.androidapps.ttslibrary.ui.views.FloatSeekBarPreference
+            app:defaultValue="1.0"
+            app:dependency="@string/key_tts_engine"
+            app:key="@string/key_pitch"
+            app:maxFloat="@string/max_pitch"
+            app:minFloat="@string/min_pitch"
+            app:showSeekBarValue="true"
+            app:title="@string/label_pitch"
+            app:valueSpacing="0.1" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
