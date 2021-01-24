@@ -7,6 +7,7 @@
 
 package angel.androidapps.ttslibrary.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -23,6 +24,7 @@ import androidx.preference.PreferenceFragmentCompat
 import angel.androidapps.ttslibrary.R
 import angel.androidapps.ttslibrary.domain.playback.tts.BaseTts
 import java.util.*
+
 
 @Suppress("unused")
 open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
@@ -63,6 +65,28 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.speech_preferences, rootKey)
         setupTts()
 
+        //setClickListeners
+        getPref(R.string.key_no_tts_language)?.setOnPreferenceClickListener {
+            print("clicked")
+            //try install directly
+            // missing data, install it
+            try {
+                val intent = Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA)
+
+                startActivity(intent)
+
+            } catch (e: Exception) {
+                print("no activity found 1: $e")
+                //open TTS page instead.
+                try {
+                    startActivity(Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS))
+                } catch (e: Exception) {
+                    print("no activity found 2: $e")
+                }
+            }
+
+            true
+        }
     }
 
 
@@ -128,6 +152,7 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
                     print(
                         "$engineSize engines found. ($engines)"
                     )
+                    //DEBUG...
                     setVisibility(R.string.key_no_tts_engine, false)
                     it.isEnabled = true
 
@@ -137,10 +162,9 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
                         it.value = names[0]
                     }
 
-                    print(
-                        "Engine ${it.entry} (${it.value}) / prev: $prev"
-                    )
-                    parseTtsLanguage()
+                    val engineUsed = "Engine ${it.entry} (${it.value}) / prev: $prev"
+                    print(engineUsed)
+                    parseTtsLanguage(engineUsed)
 
 
 
@@ -159,7 +183,7 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun parseTtsLanguage() {
+    private fun parseTtsLanguage(engineText: String) {
         baseTts.parseLanguage { list ->
 
             (getPref(R.string.key_language) as DropDownPreference?)?.let {
@@ -169,14 +193,18 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
                 val languageSize = list.size
                 if (languageSize == 0) {
                     print("No languages found!")
-                    setVisibility(R.string.key_no_tts_engine, true)
+                    setVisibility(R.string.key_no_tts_engine, false)
+                    setVisibility(R.string.key_no_tts_language, true)
                     setSummary(
                         it,
-                        R.string.error_no_language
+                        getString(R.string.error_no_language) + ". ENGINE: $engineText"
                     )
-                    getPref(R.string.key_tts_engine)?.isEnabled = false
+                    getPref(R.string.key_tts_engine)?.isEnabled = true
                     parseVoice(null)
                 } else {
+                    setVisibility(R.string.key_no_tts_language, false)
+
+
                     print("Languages found: ${list.size}")
 //                    print("")
 //                    list.forEach { print(it.toString()) }
@@ -273,6 +301,12 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
     private fun setSummary(preference: Preference, textResId: Int) {
         preference.summaryProvider = Preference.SummaryProvider<Preference> {
             getString(textResId)
+        }
+    }
+
+    private fun setSummary(preference: Preference, text: String) {
+        preference.summaryProvider = Preference.SummaryProvider<Preference> {
+            text
         }
     }
 

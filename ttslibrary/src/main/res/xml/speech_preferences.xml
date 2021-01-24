@@ -23,6 +23,14 @@
                 android:data="@string/download_tts_path" />
         </Preference>
 
+        <Preference
+            android:summary="@string/no_tts_language_found"
+            app:icon="@drawable/ic_settings_warning"
+            app:isPreferenceVisible="false"
+            app:key="@string/key_no_tts_language">
+
+        </Preference>
+
         <DropDownPreference
             app:enabled="false"
             app:key="@string/key_tts_engine"

@@ -15,11 +15,13 @@
     <string name="label_pitch">Pitch</string>
 
     <string name="no_tts_found">No TTS engine found! Click to download from Google Play</string>
+    <string name="no_tts_language_found">No language found! Click to install Google PLay language pack.</string>
     <string name="download_tts_path" translatable="false">https://play.google.com/store/apps/details?id=com.google.android.tts</string>
 
     <string name="key_check_tts_availability" translatable="false">key_check_tts_availability</string>
     <string name="key_tts_engine" translatable="false">key_tts_engine</string>
     <string name="key_no_tts_engine" translatable="false">key_no_tts_engine</string>
+    <string name="key_no_tts_language" translatable="false">key_no_tts_language</string>
     <string name="key_language" translatable="false">key_language</string>
     <string name="key_voice" translatable="false">key_voice</string>
     <string name="key_volume" translatable="false">key_volume</string>
