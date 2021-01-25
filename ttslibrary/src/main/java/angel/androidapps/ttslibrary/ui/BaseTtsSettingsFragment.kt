@@ -130,8 +130,9 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
     private fun parseTtsEngine() {
         baseTts.parseEngine { engines ->
             (getPref(R.string.key_tts_engine) as DropDownPreference?)?.let {
-                val names = engines.map { engine -> engine.name }
-                val labels = engines.map { engine -> engine.label }
+                val names = engines.map { engine -> engine.name } //e.g. com.google.android.tts
+                val labels =
+                    engines.map { engine -> engine.label } //e.g. "Google Text-to-speech engine"
                 //  val icons = engines.map { engine -> engine.icon }
 
                 it.entries = labels.toTypedArray()
@@ -159,14 +160,14 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
                     val prev = it.value
                     val idx = it.findIndexOfValue(prev)
                     if (prev.isNullOrEmpty() || idx == -1) {
-                        it.value = names[0]
+                        //prefer google TTS
+                        it.value = names.firstOrNull { name -> name == "com.google.android.tts" }
+                            ?: names[0]
                     }
 
                     val engineUsed = "Engine ${it.entry} (${it.value}) / prev: $prev"
                     print(engineUsed)
                     parseTtsLanguage(engineUsed)
-
-
 
                     it.setOnPreferenceChangeListener { _, newValue ->
                         print("Engine changed: $newValue")
