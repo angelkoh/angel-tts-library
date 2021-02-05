@@ -10,17 +10,18 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 7
-        versionName "1.0.6"
+        versionCode 8
+        versionName "1.0.7"
 
         setProperty("archivesBaseName", "TtsLibrary-$versionName")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
-    /**
-     * 1.0.6 change TTS to prefer Google.
-     */
+/**
+1.0.7 sorted by language then country
+1.0.6 change TTS to prefer Google.
+*/
 
     buildTypes {
         release {
