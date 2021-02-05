@@ -75,17 +75,18 @@ open class BaseTts {
                 } catch (e: java.lang.Exception) {
                     //TTS may crash if language returns empty collection
                     Locale.getAvailableLocales().filter { locale -> isLocaleSupported(locale) }
-                        .sortedWith(compareBy({ it.language }, {it.country}))
-                        //.sortedBy { locale -> locale.language }
+                        .sortedWith(compareBy({ it.language }, { it.country }))
+                    //.sortedBy { locale -> locale.language }
                 }
             } else {
                 Locale.getAvailableLocales().filter { locale -> isLocaleSupported(locale) }
-                    .sortedWith(compareBy({ it.language }, {it.country}))
-                    //.sortedBy { it.language }
+                    .sortedWith(compareBy({ it.language }, { it.country }))
+                //.sortedBy { it.language }
             }
             if (filter.isNotEmpty()) {
                 val filterLanguage = filter.map { it.language }
                 languages = languages.filter { filterLanguage.contains(it.language) }
+                    .sortedWith(compareBy({ it.language }, { it.country }))
             }
 
             allVoices = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

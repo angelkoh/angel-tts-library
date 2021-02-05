@@ -11,7 +11,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 8
-        versionName "1.0.7"
+        versionName "1.0.8"
 
         setProperty("archivesBaseName", "TtsLibrary-$versionName")
 
@@ -19,7 +19,7 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 /**
-1.0.7 sorted by language then country
+1.0.7/8 sorted by language then country
 1.0.6 change TTS to prefer Google.
 */
 
