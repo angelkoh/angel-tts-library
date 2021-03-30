@@ -118,6 +118,12 @@ class TtsPlaybackManager(
         doPlay(data.get())
     }
 
+    fun doAutoPlayPrev() {
+        data.isAutoPlay = true
+        data.currentLine = data.getPrevLine()
+        doPlay(data.get())
+    }
+
     fun doPlay(lineNumber: Int) {
         data.currentLine = lineNumber
         doPlay(data.get())

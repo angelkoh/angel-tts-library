@@ -81,6 +81,15 @@ class TtsService : Service() {
             updateTts()
         }
     }
+    private fun autoPlayPrev() {
+        if (playbackManager.isTtsReady()) {
+            playbackManager.doAutoPlayPrev()
+        } else {
+            //try to recover TTS
+            print(">>>TTS not ready... try to recover.<<<")
+            updateTts()
+        }
+    }
 
     private fun play(lineNumber: Int) {
         if (playbackManager.isTtsReady()) {
@@ -231,6 +240,7 @@ class TtsService : Service() {
 
         fun autoPlay() = ttsService.autoPlay()
         fun autoPlayNext() = ttsService.autoPlayNext()
+        fun autoPlayPrev() = ttsService.autoPlayPrev()
         fun pause() = ttsService.pause()
         fun play(lineNumber: Int) = ttsService.play(lineNumber)
         fun jumpTo(lineNumber: Int) = ttsService.jumpTo(lineNumber)

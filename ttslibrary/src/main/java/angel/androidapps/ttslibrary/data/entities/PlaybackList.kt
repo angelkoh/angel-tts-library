@@ -34,6 +34,11 @@ data class PlaybackList(
             .firstOrNull { metaData.isAnySet(it.type) }
     }
 
+    fun getPrevLine(): Int {
+        if (currentLine <= 0 || currentLine >= list.size) return -1
+        return list.subList(0, currentLine - 1).indexOfLast { metaData.isAnySet(it.type) }
+    }
+
     fun getNextLine(): Int {
         if (currentLine < 0 || currentLine >= list.size) return -1
         val idx = list.subList(currentLine + 1, list.size)

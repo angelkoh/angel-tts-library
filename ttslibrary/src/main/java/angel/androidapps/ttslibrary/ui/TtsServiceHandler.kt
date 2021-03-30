@@ -77,6 +77,7 @@ class TtsServiceHandler(
     //PLAYBACK CONTROLS
     fun autoPlay() = ttsConnection.autoPlay()
     fun autoPlayNext() = ttsConnection.autoPlayNext()
+    fun autoPlayPrev() = ttsConnection.autoPlayPrev()
     fun pause() = ttsConnection.pause()
     fun play(lineNumber: Int) = ttsConnection.play(lineNumber)
     fun jumpTo(lineNumber: Int) = ttsConnection.jumpTo(lineNumber)
