@@ -7,7 +7,23 @@
 
 package angel.androidapps.ttslibrary.data.entities
 
-data class PlaybackData(
+open class PlaybackData(
     val title: String,
-    val subtitle: String
-)
+    val subtitle: String,
+    val type: Int = TEXT
+) {
+
+    companion object {
+        const val CHAPTER = 0b0001
+        const val TEXT = 0b0010
+        const val TRANSLATION = 0b0100
+        const val OTHERS = 0b1000
+
+        const val NONE = 0b0000
+        const val ALL = 0b1111
+    }
+
+    override fun toString(): String {
+        return "PlaybackData(title='$title', subtitle='$subtitle', type=$type)"
+    }
+}

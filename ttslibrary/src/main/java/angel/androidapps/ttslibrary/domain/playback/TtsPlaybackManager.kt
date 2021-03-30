@@ -33,6 +33,14 @@ class TtsPlaybackManager(
 
     }
 
+    fun setPlayText(isPlay: Boolean) {
+        data.isPlayText = isPlay
+    }
+
+    fun setPlayTranslation(isPlay: Boolean) {
+        data.isPlayTranslation = isPlay
+    }
+
     //=============
     //TTS COMPONENT
     //=============
@@ -81,10 +89,6 @@ class TtsPlaybackManager(
         print("Volume: ${format(ttsVolume)}")
     }
 
-//    fun changeLanguage(value: String) = tts.updateLanguage(value)
-//    fun changeVoice(value: String) = tts.updateVoice(value)
-
-
     //=============
     //PLAYBACK
     //=============
@@ -101,7 +105,7 @@ class TtsPlaybackManager(
 
     fun doAutoPlayNext() {
         data.isAutoPlay = true
-        data.currentLine++
+        data.currentLine = data.getNextLine()
         doPlay(data.get())
     }
 
@@ -153,7 +157,7 @@ class TtsPlaybackManager(
         print("play next?  ${data.metaData}")
         if (data.isAutoPlay) {
             if (data.hasNext) {
-                data.currentLine++
+                data.currentLine = data.getNextLine()
                 print("Play next line")
                 doAutoPlay()
             } else {

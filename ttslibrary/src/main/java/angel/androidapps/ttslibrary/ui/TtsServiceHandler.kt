@@ -7,10 +7,10 @@
 
 package angel.androidapps.ttslibrary.ui
 
-import angel.androidapps.ttslibrary.TtsService
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import angel.androidapps.ttslibrary.TtsService
 import angel.androidapps.ttslibrary.data.entities.PlaybackData
 import angel.androidapps.ttslibrary.data.entities.PlaybackMetaData
 
@@ -62,6 +62,8 @@ class TtsServiceHandler(
     fun populate(
         list: List<PlaybackData>, onError: (String) -> Unit
     ) = ttsConnection.populate(list, onError)
+    fun setPlayText(isPlay: Boolean) = ttsConnection.setPlayText(isPlay)
+    fun setPlayTranslation(isPlay: Boolean) = ttsConnection.setPlayTranslation(isPlay)
 
     //PREFERENCES AND SETTINGS
     fun updateTts() = ttsConnection.updateTts()
@@ -74,7 +76,7 @@ class TtsServiceHandler(
     fun autoPlayNext() = ttsConnection.autoPlayNext()
     fun pause() = ttsConnection.pause()
     fun play(lineNumber: Int) = ttsConnection.play(lineNumber)
-    fun jumpTo(lineNumber: Int) =ttsConnection.jumpTo(lineNumber)
+    fun jumpTo(lineNumber: Int) = ttsConnection.jumpTo(lineNumber)
 
     companion object {
 

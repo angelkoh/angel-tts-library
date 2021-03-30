@@ -16,6 +16,7 @@ package angel.androidapps.ttslibrary.data.entities
 
 data class PlaybackMetaData(
     var currentLine: Int = -1,
+    var typeMask: Int = PlaybackData.ALL,
     //STATE
     var isAutoPlay: Boolean = false,
     var hasNext: Boolean = false,
@@ -32,6 +33,22 @@ data class PlaybackMetaData(
             title = ""
             subtitle = ""
         }
+    }
+
+    fun setMask(bit: Int) {
+        typeMask = typeMask or bit
+    }
+
+    fun clearMask(bit: Int) {
+        typeMask = typeMask and bit.inv()
+    }
+
+    fun isAllSet(bit: Int): Boolean {
+        return (bit and typeMask) == bit
+    }
+
+    fun isAnySet(bit: Int): Boolean {
+        return (bit and typeMask) > 0
     }
 
 }

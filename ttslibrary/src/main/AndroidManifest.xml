@@ -9,7 +9,8 @@
             android:exported="false" />
         <service
             android:name=".NotificationService"
-            android:exported="false" />
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
     </application>
 
 

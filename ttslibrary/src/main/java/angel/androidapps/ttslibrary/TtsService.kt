@@ -52,9 +52,9 @@ class TtsService : Service() {
 
     }
 
-    private fun populate(list: List<PlaybackData>) {
-        playbackManager.updateData(list)
-    }
+    private fun populate(list: List<PlaybackData>) = playbackManager.updateData(list)
+    private fun setPlayText(isPlay: Boolean) = playbackManager.setPlayText(isPlay)
+    private fun setPlayTranslation(isPlay: Boolean) = playbackManager.setPlayTranslation(isPlay)
 
     //==================
     //PLAYBACK
@@ -221,6 +221,9 @@ class TtsService : Service() {
                 onError.invoke("Error! Tts Service not bounded!")
             }
         }
+
+        fun setPlayText(isPlay: Boolean) = ttsService.setPlayText(isPlay)
+        fun setPlayTranslation(isPlay: Boolean) = ttsService.setPlayTranslation(isPlay)
 
         fun autoPlay() = ttsService.autoPlay()
         fun autoPlayNext() = ttsService.autoPlayNext()

@@ -15,6 +15,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -111,8 +112,13 @@ open class NotificationService : Service() {
     ): Notification {
 
         val onClickIntent = Intent(applicationContext, clazz)
+
+        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        } else PendingIntent.FLAG_UPDATE_CURRENT
+
         val pendingIntent = PendingIntent.getActivity(
-            this, 0, onClickIntent, PendingIntent.FLAG_UPDATE_CURRENT
+            this, 0, onClickIntent, flag
         )
         createChannelIfNeeded()
 
@@ -150,8 +156,12 @@ open class NotificationService : Service() {
         icon: Int, title: String, intentAction: String
     ): NotificationCompat.Action? {
         val clickIntent = Intent().setAction(intentAction)
+
+        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE
+        else 0
+
         val pendingIntent = PendingIntent.getBroadcast(
-            this, 0, clickIntent, 0
+            this, 0, clickIntent, flag
         )
         return NotificationCompat.Action.Builder(icon, title, pendingIntent)
             .build()
@@ -198,7 +208,7 @@ open class NotificationService : Service() {
 
         //private const val TAG = "Angel: TtsNoti"
         private fun print(s: String) {
-           // Log.d(TAG, s)
+          //   Log.d(TAG, s)
         }
 
         //==============================
