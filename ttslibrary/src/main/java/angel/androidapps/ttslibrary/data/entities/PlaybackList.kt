@@ -21,8 +21,15 @@ data class PlaybackList(
         return list.getOrNull(currentLine)
     }
 
+    private fun getPrev(): PlaybackData? {
+        if (currentLine <= 0 || currentLine >= list.size) return null
+        return list.subList(0, currentLine - 1)
+            .lastOrNull { metaData.isAnySet(it.type) }
+
+    }
+
     private fun getNext(): PlaybackData? {
-        if (currentLine < 0 || currentLine >= list.size) return null
+        if (currentLine < 0 || currentLine >= list.size - 1) return null
         return list.subList(currentLine + 1, list.size)
             .firstOrNull { metaData.isAnySet(it.type) }
     }
@@ -52,7 +59,7 @@ data class PlaybackList(
         get() = metaData.currentLine
         set(value) {
             metaData.currentLine = value
-            updateHasNext()
+            updateHasNextAndPrev()
             metaData.populate(get())
         }
 
@@ -63,12 +70,20 @@ data class PlaybackList(
             metaData.isAutoPlay = value
         }
 
+    var isPlayChapter: Boolean
+        get() = metaData.isAllSet(PlaybackData.CHAPTER)
+        set(value) {
+            if (value) metaData.setMask(PlaybackData.CHAPTER)
+            else metaData.clearMask(PlaybackData.CHAPTER)
+            updateHasNextAndPrev()
+        }
+
     var isPlayText: Boolean
         get() = metaData.isAllSet(PlaybackData.TEXT)
         set(value) {
             if (value) metaData.setMask(PlaybackData.TEXT)
             else metaData.clearMask(PlaybackData.TEXT)
-            updateHasNext()
+            updateHasNextAndPrev()
         }
 
     var isPlayTranslation: Boolean
@@ -76,11 +91,20 @@ data class PlaybackList(
         set(value) {
             if (value) metaData.setMask(PlaybackData.TRANSLATION)
             else metaData.clearMask(PlaybackData.TRANSLATION)
-            updateHasNext()
+            updateHasNextAndPrev()
         }
 
-    private fun updateHasNext() {
+    var isPlayOthers: Boolean
+        get() = metaData.isAllSet(PlaybackData.OTHERS)
+        set(value) {
+            if (value) metaData.setMask(PlaybackData.OTHERS)
+            else metaData.clearMask(PlaybackData.OTHERS)
+            updateHasNextAndPrev()
+        }
+
+    private fun updateHasNextAndPrev() {
         metaData.hasNext = getNext() != null
+        metaData.hasPrev = getPrev() != null
     }
 
     fun resetMetaData(retainRow: Boolean) {

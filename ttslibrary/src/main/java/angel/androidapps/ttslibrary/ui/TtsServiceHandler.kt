@@ -62,8 +62,11 @@ class TtsServiceHandler(
     fun populate(
         list: List<PlaybackData>, onError: (String) -> Unit
     ) = ttsConnection.populate(list, onError)
+
+    fun setPlayChapter(isPlay: Boolean) = ttsConnection.setPlayChapter(isPlay)
     fun setPlayText(isPlay: Boolean) = ttsConnection.setPlayText(isPlay)
     fun setPlayTranslation(isPlay: Boolean) = ttsConnection.setPlayTranslation(isPlay)
+    fun setPlayOthers(isPlay: Boolean) = ttsConnection.setPlayOthers(isPlay)
 
     //PREFERENCES AND SETTINGS
     fun updateTts() = ttsConnection.updateTts()

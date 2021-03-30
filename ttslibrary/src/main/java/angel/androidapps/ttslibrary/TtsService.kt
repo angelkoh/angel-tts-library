@@ -53,8 +53,10 @@ class TtsService : Service() {
     }
 
     private fun populate(list: List<PlaybackData>) = playbackManager.updateData(list)
+    private fun setPlayChapter(isPlay: Boolean) = playbackManager.setPlayChapter(isPlay)
     private fun setPlayText(isPlay: Boolean) = playbackManager.setPlayText(isPlay)
     private fun setPlayTranslation(isPlay: Boolean) = playbackManager.setPlayTranslation(isPlay)
+    private fun setPlayOthers(isPlay: Boolean) = playbackManager.setPlayOthers(isPlay)
 
     //==================
     //PLAYBACK
@@ -222,8 +224,10 @@ class TtsService : Service() {
             }
         }
 
+        fun setPlayChapter(isPlay: Boolean) = ttsService.setPlayChapter(isPlay)
         fun setPlayText(isPlay: Boolean) = ttsService.setPlayText(isPlay)
         fun setPlayTranslation(isPlay: Boolean) = ttsService.setPlayTranslation(isPlay)
+        fun setPlayOthers(isPlay: Boolean) = ttsService.setPlayOthers(isPlay)
 
         fun autoPlay() = ttsService.autoPlay()
         fun autoPlayNext() = ttsService.autoPlayNext()

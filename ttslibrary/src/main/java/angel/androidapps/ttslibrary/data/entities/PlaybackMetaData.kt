@@ -16,10 +16,11 @@ package angel.androidapps.ttslibrary.data.entities
 
 data class PlaybackMetaData(
     var currentLine: Int = -1,
-    var typeMask: Int = PlaybackData.ALL,
+    var typeMask: Int = PlaybackData.NONE,
     //STATE
     var isAutoPlay: Boolean = false,
     var hasNext: Boolean = false,
+    var hasPrev: Boolean = false,
     //PLAYBACK
     var title: String = "",
     var subtitle: String = ""

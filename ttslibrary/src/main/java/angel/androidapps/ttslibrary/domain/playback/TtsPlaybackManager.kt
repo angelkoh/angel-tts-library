@@ -33,12 +33,21 @@ class TtsPlaybackManager(
 
     }
 
+    fun setPlayChapter(isPlay: Boolean) {
+        data.isPlayChapter = isPlay
+    }
+
     fun setPlayText(isPlay: Boolean) {
         data.isPlayText = isPlay
     }
 
+
     fun setPlayTranslation(isPlay: Boolean) {
         data.isPlayTranslation = isPlay
+    }
+
+    fun setPlayOthers(isPlay: Boolean) {
+        data.isPlayOthers = isPlay
     }
 
     //=============
