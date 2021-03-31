@@ -108,8 +108,12 @@ class TtsPlaybackManager(
     }
 
     fun doAutoPlay() {
-        data.isAutoPlay = true
-        doPlay(data.get())
+        if (!data.shouldPlayCurrent() && data.hasNext) {
+            doAutoPlayNext()
+        } else {
+            data.isAutoPlay = true
+            doPlay(data.get())
+        }
     }
 
     fun doAutoPlayNext() {

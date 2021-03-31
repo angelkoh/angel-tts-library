@@ -23,7 +23,7 @@ data class PlaybackList(
 
     private fun getPrev(): PlaybackData? {
         if (currentLine <= 0 || currentLine >= list.size) return null
-        return list.subList(0, currentLine - 1)
+        return list.subList(0, currentLine)
             .lastOrNull { metaData.isAnySet(it.type) }
 
     }
@@ -36,7 +36,7 @@ data class PlaybackList(
 
     fun getPrevLine(): Int {
         if (currentLine <= 0 || currentLine >= list.size) return -1
-        return list.subList(0, currentLine - 1).indexOfLast { metaData.isAnySet(it.type) }
+        return list.subList(0, currentLine).indexOfLast { metaData.isAnySet(it.type) }
     }
 
     fun getNextLine(): Int {
