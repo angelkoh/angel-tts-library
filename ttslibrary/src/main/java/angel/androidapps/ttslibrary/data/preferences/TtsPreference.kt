@@ -19,5 +19,6 @@ object TtsPreference : BasePreference() {
     fun ttsVoice(ctx: Context) = prefString(ctx, R.string.key_voice, "")
     fun ttsLanguage(ctx: Context) = prefString(ctx, R.string.key_language, "")
 
+    fun ttsTextSize(ctx: Context) = prefInt(ctx, R.string.key_text_size, 16 )
 
 }

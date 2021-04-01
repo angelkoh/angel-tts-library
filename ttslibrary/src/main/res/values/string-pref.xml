@@ -40,6 +40,13 @@
     <string name="max_pitch" translatable="false">4.0</string>
     <string name="format" translatable="false">%3.1f</string>
 
+    <!--    TEXT SIZE-->
+    <string name="label_text_size">Text size</string>
+    <string name="key_text_size" translatable="false">key_text_size</string>
+    <string name="min_text_size" translatable="false">14</string>
+    <string name="max_text_size" translatable="false">30</string>
+
+
     <!--    PLAYBACK SETTINGS CATEGORY-->
 
     <!--    NAVIGATION CATEGORY-->

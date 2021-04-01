@@ -80,6 +80,15 @@
             app:title="@string/label_pitch"
             app:valueSpacing="0.1" />
 
+        <SeekBarPreference
+            android:max="@string/max_text_size"
+            app:defaultValue="16"
+            app:key="@string/key_text_size"
+            app:min="@string/min_text_size"
+            app:icon="@drawable/ic_menu_text_size"
+            app:showSeekBarValue="true"
+            app:title="@string/label_text_size" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

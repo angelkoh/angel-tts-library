@@ -16,6 +16,9 @@ open class BasePreference {
 
     // GETTERS
     //================
+    protected fun prefInt(ctx: Context, keyResId: Int, defValue: Int) =
+        pref(ctx).getInt(s(ctx, keyResId), defValue)
+
     protected fun prefFloat(ctx: Context, keyResId: Int, defValue: Float) =
         pref(ctx).getFloat(s(ctx, keyResId), defValue)
 
