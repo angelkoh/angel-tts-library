@@ -22,6 +22,7 @@ class TtsServiceHandler(
     onCurrentLineChanged: (metaData: PlaybackMetaData) -> Unit
 ) {
 
+    private var shouldUnbind = false
     private val ttsConnection =
         TtsService.TtsConnection(
             onConnectedCallback,
@@ -39,7 +40,7 @@ class TtsServiceHandler(
             context.startService(intent)
 
             print("Binding service")
-            context.bindService(
+            shouldUnbind = context.bindService(
                 intent, ttsConnection, Context.BIND_AUTO_CREATE
             )
         }
@@ -47,8 +48,11 @@ class TtsServiceHandler(
 
     fun unbind(context: Context) {
         print("Unbinding service")
-        context.unbindService(ttsConnection)
         try {
+            if(shouldUnbind) {
+                context.unbindService(ttsConnection)
+                shouldUnbind = false
+            }
             print("Stopping service")
             serviceIntent?.let { intent ->
                 context.stopService(intent)
