@@ -140,19 +140,12 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
 
                 val engineSize = engines.size
                 if (engineSize == 0) {
-                    print(
-                        "No engines found!"
-                    )
+                    print("No engines found!")
                     setVisibility(R.string.key_no_tts_engine, true)
-                    setSummary(
-                        it,
-                        R.string.error_no_tts
-                    )
+                    setSummary(it, R.string.error_no_tts)
                     it.isEnabled = false
                 } else {
-                    print(
-                        "$engineSize engines found. ($engines)"
-                    )
+                    print("$engineSize engines found. ($engines)")
                     //DEBUG...
                     setVisibility(R.string.key_no_tts_engine, false)
                     it.isEnabled = true
@@ -167,7 +160,7 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
 
                     val engineUsed = "Engine ${it.entry} (${it.value}) / prev: $prev"
                     print(engineUsed)
-                    parseTtsLanguage(engineUsed)
+                    parseTtsLanguage()
 
                     it.setOnPreferenceChangeListener { _, newValue ->
                         print("Engine changed: $newValue")
@@ -184,7 +177,7 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun parseTtsLanguage(engineText: String) {
+    private fun parseTtsLanguage() {
         baseTts.parseLanguage { list ->
 
             (getPref(R.string.key_language) as DropDownPreference?)?.let {
@@ -194,22 +187,19 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
                 val languageSize = list.size
                 if (languageSize == 0) {
                     print("No languages found!")
+                    it.isEnabled = false
+                    it.setTitle(R.string.error_no_language)
+
                     setVisibility(R.string.key_no_tts_engine, false)
                     setVisibility(R.string.key_no_tts_language, true)
-                    setSummary(
-                        it,
-                        getString(R.string.error_no_language) + ". ENGINE: $engineText"
-                    )
-                    getPref(R.string.key_tts_engine)?.isEnabled = true
                     parseVoice(null)
+
                 } else {
-                    setVisibility(R.string.key_no_tts_language, false)
-
-
                     print("Languages found: ${list.size}")
-//                    print("")
-//                    list.forEach { print(it.toString()) }
-//                    print("")
+                    it.isEnabled = true
+                    it.setTitle(R.string.label_language)
+
+                    setVisibility(R.string.key_no_tts_language, false)
 
                     val prev = it.value
                     val index = it.findIndexOfValue(prev)

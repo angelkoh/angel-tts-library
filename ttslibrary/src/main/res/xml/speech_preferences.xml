@@ -44,14 +44,14 @@
             app:title="@string/label_language" />
 
         <DropDownPreference
-            app:dependency="@string/key_tts_engine"
+            app:dependency="@string/key_language"
             app:key="@string/key_voice"
             app:summary="%1$s"
             app:title="@string/label_voice" />
 
         <angel.androidapps.ttslibrary.ui.views.FloatSeekBarPreference
             app:defaultValue="1.0"
-            app:dependency="@string/key_tts_engine"
+            app:dependency="@string/key_language"
             app:format="@string/format"
             app:key="@string/key_volume"
             app:maxFloat="@string/max_volume"
@@ -62,7 +62,7 @@
 
         <angel.androidapps.ttslibrary.ui.views.FloatSeekBarPreference
             app:defaultValue="1.0"
-            app:dependency="@string/key_tts_engine"
+            app:dependency="@string/key_language"
             app:key="@string/key_speech_rate"
             app:maxFloat="@string/max_speech_rate"
             app:minFloat="@string/min_speech_rate"
@@ -72,7 +72,7 @@
 
         <angel.androidapps.ttslibrary.ui.views.FloatSeekBarPreference
             app:defaultValue="1.0"
-            app:dependency="@string/key_tts_engine"
+            app:dependency="@string/key_language"
             app:key="@string/key_pitch"
             app:maxFloat="@string/max_pitch"
             app:minFloat="@string/min_pitch"

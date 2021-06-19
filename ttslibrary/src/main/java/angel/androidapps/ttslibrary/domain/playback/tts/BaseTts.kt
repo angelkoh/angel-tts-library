@@ -88,11 +88,22 @@ open class BaseTts {
                 .sortedWith(compareBy({ it.language }, { it.country }))
                  //.sortedBy { locale -> locale.language }
 
+            if (languages.isNullOrEmpty()) {
+                print(">>> ERROR TTS <<<")
+                print(">>> ERROR TTS <<<")
+                print("-- Language not installed.--")
+                print(">>> ERROR TTS <<<")
+                print(">>> ERROR TTS <<<")
+                isTtsReady = TTS_STATUS_ERROR
+            }
+
+            //VOICES
             allVoices = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 tts?.voices?.sortedBy { it.name }.orEmpty()
             } else {
                 emptyList()
             }
+
 
         } else {
             val error = getErrorString(status)
