@@ -158,9 +158,9 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
                             ?: names[0]
                     }
 
-                    val engineUsed = "Engine ${it.entry} (${it.value}) / prev: $prev"
+                    val engineUsed = it.value
                     print(engineUsed)
-                    parseTtsLanguage()
+                    parseTtsLanguage(engineUsed)
 
                     it.setOnPreferenceChangeListener { _, newValue ->
                         print("Engine changed: $newValue")
@@ -177,7 +177,7 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun parseTtsLanguage() {
+    private fun parseTtsLanguage(engineText: String) {
         baseTts.parseLanguage { list ->
 
             (getPref(R.string.key_language) as DropDownPreference?)?.let {
@@ -190,8 +190,15 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
                     it.isEnabled = false
                     it.setTitle(R.string.error_no_language)
 
-                    setVisibility(R.string.key_no_tts_engine, false)
-                    setVisibility(R.string.key_no_tts_language, true)
+                    if (engineText == "com.google.android.tts") {
+                        //if engine is google, then download language pack
+                        setVisibility(R.string.key_no_tts_engine, false)
+                        setVisibility(R.string.key_no_tts_language, true)
+                    } else {
+                        //else download Google TTS
+                        setVisibility(R.string.key_no_tts_engine, true)
+                        setVisibility(R.string.key_no_tts_language, false)
+                    }
                     parseVoice(null)
 
                 } else {
