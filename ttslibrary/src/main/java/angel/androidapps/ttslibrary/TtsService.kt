@@ -197,7 +197,7 @@ class TtsService : Service() {
         private val onCurrentLineChanged: (metaData: PlaybackMetaData) -> Unit
     ) : ServiceConnection {
 
-        private lateinit var ttsService: TtsService
+        private var ttsService: TtsService?=null
 
         companion object {
             var bound: Boolean = false
@@ -208,9 +208,9 @@ class TtsService : Service() {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             bound = true
             ttsService = (service as TtsBinder).getService()
-            ttsService.setupService(onTtsStateChanged, onCurrentLineChanged)
+            ttsService?.setupService(onTtsStateChanged, onCurrentLineChanged)
                 .also { isReady ->
-                    onConnectedCallback.invoke(isReady)
+                    onConnectedCallback.invoke(isReady?:false)
                 }
         }
 
@@ -227,32 +227,32 @@ class TtsService : Service() {
             onError: (String) -> Unit
         ) {
             if (bound) {
-                ttsService.populate(list)
+                ttsService?.populate(list)
             } else {
                 onError.invoke("Error! Tts Service not bounded!")
             }
         }
 
-        fun setPlayChapter(isPlay: Boolean) = ttsService.setPlayChapter(isPlay)
-        fun setPlayText(isPlay: Boolean) = ttsService.setPlayText(isPlay)
-        fun setPlayTranslation(isPlay: Boolean) = ttsService.setPlayTranslation(isPlay)
-        fun setPlayOthers(isPlay: Boolean) = ttsService.setPlayOthers(isPlay)
+        fun setPlayChapter(isPlay: Boolean) = ttsService?.setPlayChapter(isPlay)
+        fun setPlayText(isPlay: Boolean) = ttsService?.setPlayText(isPlay)
+        fun setPlayTranslation(isPlay: Boolean) = ttsService?.setPlayTranslation(isPlay)
+        fun setPlayOthers(isPlay: Boolean) = ttsService?.setPlayOthers(isPlay)
 
-        fun autoPlay() = ttsService.autoPlay()
-        fun autoPlayNext() = ttsService.autoPlayNext()
-        fun autoPlayPrev() = ttsService.autoPlayPrev()
-        fun pause() = ttsService.pause()
-        fun play(lineNumber: Int) = ttsService.play(lineNumber)
-        fun jumpTo(lineNumber: Int) = ttsService.jumpTo(lineNumber)
+        fun autoPlay() = ttsService?.autoPlay()
+        fun autoPlayNext() = ttsService?.autoPlayNext()
+        fun autoPlayPrev() = ttsService?.autoPlayPrev()
+        fun pause() = ttsService?.pause()
+        fun play(lineNumber: Int) = ttsService?.play(lineNumber)
+        fun jumpTo(lineNumber: Int) = ttsService?.jumpTo(lineNumber)
 
         //UPDATE PREF (TTS)
         //===================
         fun updateTts() {
-            if (bound) ttsService.updateTts()
+            if (bound) ttsService?.updateTts()
         }
 
 //        fun updateTtsLanguageAndVoice(language: String, voice: String) {
-//            if (bound) ttsService.updateTtsLanguageAndVoice(language, voice)
+//            if (bound) ttsService?.updateTtsLanguageAndVoice(language, voice)
 //        }
     }
 
