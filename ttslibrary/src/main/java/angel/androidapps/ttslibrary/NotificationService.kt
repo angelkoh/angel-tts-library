@@ -8,14 +8,18 @@
 
 package angel.androidapps.ttslibrary
 
+import android.Manifest
 import android.app.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -41,7 +45,7 @@ open class NotificationService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.run {
             pkName = getStringExtra(PACKAGE_NAME) ?: ""
-            clazz = Class.forName(getStringExtra(CLASS_NAME))
+            clazz = Class.forName(getStringExtra(CLASS_NAME)?:"")
             channelId = "$pkName.narrate_channel"
             // The user-visible description of the channel.
             channelName = "$packageName notification channel"
@@ -78,6 +82,21 @@ open class NotificationService : Service() {
             startForeground(NOTIFICATION_ID, notification)
 
         } else {
+
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
             getNotificationManager().notify(NOTIFICATION_ID, notification)
         }
     }
@@ -87,7 +106,8 @@ open class NotificationService : Service() {
         if (showingNotification) {
             print("stopping notification...")
             showingNotification = false
-            stopForeground(true)
+
+            stopForeground(STOP_FOREGROUND_DETACH)
         } else {
             print("notification already stopped")
         }
@@ -113,9 +133,8 @@ open class NotificationService : Service() {
 
         val onClickIntent = Intent(applicationContext, clazz)
 
-        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val flag =
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        } else PendingIntent.FLAG_UPDATE_CURRENT
 
         val pendingIntent = PendingIntent.getActivity(
             this, 0, onClickIntent, flag
@@ -156,9 +175,9 @@ open class NotificationService : Service() {
         icon: Int, title: String, intentAction: String
     ): NotificationCompat.Action? {
         val clickIntent = Intent().setAction(intentAction)
+            .also { it.setPackage(this.packageName) }
 
-        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE
-        else 0
+        val flag = PendingIntent.FLAG_IMMUTABLE
 
         val pendingIntent = PendingIntent.getBroadcast(
             this, 0, clickIntent, flag
@@ -171,22 +190,20 @@ open class NotificationService : Service() {
     //===============
     private fun createChannelIfNeeded() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationManager = getNotificationManager()
+        val notificationManager = getNotificationManager()
 
 
-            //https://stackoverflow.com/questions/46086233/media-controls-notification-emits-alert-on-android-o
-            val importance = NotificationManager.IMPORTANCE_LOW
-            //low will not have the alert sound on api26
-            // print("channelID: $channelId")
-            // print("channelNAME: $channelName")
-            val mChannel = NotificationChannel(channelId, channelName, importance)
-            // Configure the notification channel.
-            mChannel.description = channelName
-            mChannel.setShowBadge(false)
-            mChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
-            notificationManager.createNotificationChannel(mChannel)
-        }
+        //https://stackoverflow.com/questions/46086233/media-controls-notification-emits-alert-on-android-o
+        val importance = NotificationManager.IMPORTANCE_LOW
+        //low will not have the alert sound on api26
+        // print("channelID: $channelId")
+        // print("channelNAME: $channelName")
+        val mChannel = NotificationChannel(channelId, channelName, importance)
+        // Configure the notification channel.
+        mChannel.description = channelName
+        mChannel.setShowBadge(false)
+        mChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        notificationManager.createNotificationChannel(mChannel)
     }
 
     //COMPANION OBJECT
@@ -218,11 +235,7 @@ open class NotificationService : Service() {
             val notificationIntent = makeNotificationIntent(
                 activity, logoResId, metaData
             )
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                activity.startForegroundService(notificationIntent)
-            } else {
-                activity.startService(notificationIntent)
-            }
+            activity.startForegroundService(notificationIntent)
         }
 
         fun endService(context: Context) {
@@ -295,7 +308,9 @@ open class NotificationService : Service() {
                     }
                 }
             }).also { receiver ->
-                context.registerReceiver(receiver, filter)
+
+                ContextCompat.registerReceiver(context, receiver,filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+
             }
         }
 

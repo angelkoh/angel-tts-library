@@ -52,7 +52,8 @@ class FloatSeekBarPreference(
             this(context, attrs, defStyleAttr, 0)
 
     constructor(context: Context, attrs: AttributeSet?) :
-            this(context, attrs, R.attr.seekBarPreferenceStyle)
+            this(context, attrs, androidx.preference.R.attr.seekBarPreferenceStyle)
+
 
     @Suppress("unused")
     constructor(context: Context) : this(context, null)
@@ -74,8 +75,9 @@ class FloatSeekBarPreference(
     // Called when a Preference is being inflated and the default value attribute needs to be read. Since different
     // Preference types have different value types, the subclass should get and return the default value which will be
     // its value type.
-    override fun onGetDefaultValue(ta: TypedArray?, i: Int): Any {
-        defaultValue = ta!!.getFloat(i, 0F) // XMLで指定したデフォルト値を取得
+
+    override fun onGetDefaultValue(ta: TypedArray, i: Int): Any {
+        defaultValue = ta.getFloat(i, 0F) // XMLで指定したデフォルト値を取得
         return defaultValue
     }
 
@@ -88,10 +90,10 @@ class FloatSeekBarPreference(
     }
 
     // onGetDefaultValue -> onSetInitialValue -> onBindViewHolder の順に呼ばれる
-    override fun onBindViewHolder(holder: PreferenceViewHolder?) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder ) {
         super.onBindViewHolder(holder)
 
-        holder!!.itemView.isClickable = false
+        holder .itemView.isClickable = false
         seekBar = holder.findViewById(R.id.seekbar) as SeekBar
         textView = holder.findViewById(R.id.seekbar_value) as TextView
 

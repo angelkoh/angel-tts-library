@@ -35,9 +35,9 @@ open class BaseTtsSettingsFragment : PreferenceFragmentCompat() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View  {
         print("OnCreateView")
-        return super.onCreateView(inflater, container, savedInstanceState)?.also { root ->
+        return super.onCreateView(inflater, container, savedInstanceState) .also { root ->
 
             val toolbar = root.findViewById<Toolbar>(R.id.toolbar_top)
             (activity as AppCompatActivity?)?.let {

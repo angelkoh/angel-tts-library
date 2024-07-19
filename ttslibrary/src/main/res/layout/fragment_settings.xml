@@ -10,14 +10,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.TtsAppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_top"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:theme="@style/AppTheme.TtsAppBarOverlay"
+            app:popupTheme="@style/AppTheme.TtsPopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -25,6 +25,6 @@
         android:id="@android:id/list_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:targetApi="n" />
+         />
     <!-- targetApi just to appease the IDE; the id is defined by the support lib. -->
 </LinearLayout>

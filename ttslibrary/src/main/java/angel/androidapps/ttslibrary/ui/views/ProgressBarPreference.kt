@@ -32,7 +32,7 @@ class ProgressBarPreference(
             this(context, attrs, defStyleAttr, 0)
 
     constructor(context: Context, attrs: AttributeSet?) :
-            this(context, attrs, R.attr.preferenceStyle)
+            this(context, attrs ,androidx.preference.R.attr.preferenceStyle)
 
     @Suppress("unused")
     constructor(context: Context) : this(context, null)
@@ -50,12 +50,10 @@ class ProgressBarPreference(
 
 
     // onGetDefaultValue -> onSetInitialValue -> onBindViewHolder の順に呼ばれる
-    override fun onBindViewHolder(holder: PreferenceViewHolder?) {
+    override fun onBindViewHolder(holder: PreferenceViewHolder ) {
         super.onBindViewHolder(holder)
 
-        if (holder != null) {
-            holder.itemView.isClickable = false
-        }
+        holder.itemView.isClickable = false
     }
 
 
