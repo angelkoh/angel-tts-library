@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion 26
         targetSdk 35
-        versionCode 3501
-        versionName "1.2.3"
+        versionCode 3502
+        versionName "1.2.4"
 
         setProperty("archivesBaseName", "TtsLibrary-$versionName")
 
@@ -48,6 +48,19 @@ android {
         jvmTarget = '17'
     }
 
+}
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.angelkoh'
+            artifactId = 'angel-tts-library'
+            version = '1.2.4'
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }
 
 dependencies {
